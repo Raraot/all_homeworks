@@ -1,0 +1,14 @@
+FROM python:3.10
+
+MAINTAINER Volodymyr Suprunets "raraot@gmail.com"
+
+COPY . /cli_docker
+
+WORKDIR /cli_docker
+
+RUN pip install pipenv
+
+ENTRYPOINT ["python"]
+CMD ["main.py"]
+
+
