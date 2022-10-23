@@ -44,7 +44,11 @@ if __name__ == '__main__':
     output_path = Path(inp_output)
     folders = []
     folders.append(source_path)
-    collect_folders(source_path)
+    try:
+        collect_folders(source_path)
+    except FileNotFoundError:
+        print("Папку для сортування не знайдено.")
+        exit()
 
     threads = []
     for folder in folders:
