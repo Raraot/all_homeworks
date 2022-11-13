@@ -17,7 +17,7 @@ class SendMessageThread_(Thread):
                 self.stopped()
                 break
             print(f'My message: \033[32m{message}\033[0m')
-            message2 = f'Message from IP:{IP}: \033[33m{message}\033[0m'
+            message2 = f'Message from IP:{my_local_ip}: \033[33m{message}\033[0m'
             client_socket.send(message2.encode())
 
     def stopped(self):
@@ -44,13 +44,20 @@ class ReceivMessageThread_(Thread):
 
 
 if __name__ == '__main__':
-    # host = socket.gethostname()
-    # IP = socket.gethostbyname(host)
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    my_local_ip = s.getsockname()[0]
+    s.close()
+
     local_ip_server = input('Input the local IP of server: ')
     port = 5562
 
     client_socket = socket.socket()
     client_socket.connect((local_ip_server, port))
+
+    print('\033[32m*** Connected to server... ***\033[0m')
+    print('You can write any message.')
 
     thread_send = SendMessageThread_()
     thread_receiv = ReceivMessageThread_()
