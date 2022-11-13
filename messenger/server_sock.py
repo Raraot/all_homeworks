@@ -43,15 +43,23 @@ class ReceivMessageThread(Thread):
 
 
 if __name__ == '__main__':
-    host = socket.gethostname()
-    IP = socket.gethostbyname(host)
+    # host = socket.gethostname()
+    # IP = socket.gethostbyname(host)
+    # IP = '192.168.1.69'
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    local_ip = s.getsockname()[0]
+    s.close()
+
     port = 5562
 
     server_socket = socket.socket()
-    server_socket.bind((host, port))
+    server_socket.bind((local_ip, port))
     server_socket.listen(2)
     conn, address = server_socket.accept()
 
+    print(f'My local IP: {local_ip}\n'
+          f'you must to input this IP in client app')
     thread_send_serv = SendMessageThread()
     thread_receiv_serv = ReceivMessageThread()
 
