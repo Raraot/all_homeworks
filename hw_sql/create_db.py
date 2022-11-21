@@ -22,7 +22,7 @@ def generate_fake_peoples(how_many):
 
 if __name__ == '__main__':
     teachers = generate_fake_peoples(3)
-    students = generate_fake_peoples(12)
+    students = generate_fake_peoples(30)
     groups = {101: 'first', 102: 'second', 103: 'third'}
     lessons = {201: 'Теоретична механіка', 202: 'Аеродинаміка', 203: 'Англійська мова', 204: 'Опір матеріалів', 205: 'Історія України'}
     lessons_and_teachers = {201: ['Теоретична механіка', 301], 202: ['Аеродинаміка', 302], 203: ['Англійська мова', 303], 204: ['Опір матеріалів', 301], 205: ['Історія України', 303]}
