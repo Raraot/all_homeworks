@@ -7,15 +7,15 @@ ORDER BY avg_grade DESC
 LIMIT 5;
 
 
--- 1 студент із найвищим середнім балом з одного предмета. (враховуючі всі предмети)
-SELECT  s.name_student as top_1_student, l.name_lessons, round(avg(g.grade), 2) AS avg_grade
-FROM gradebook as g
-LEFT JOIN students as s ON s.id = g.student_id
-LEFT JOIN lessons as l ON l.id = g.lesson_id
---WHERE l.id = 202 -- Якщо розкоментувати, то можна виводити по ID предмету(дисципліни) (201-205) 
-GROUP BY s.name_student, l.name_lessons
-ORDER BY avg_grade DESC
-LIMIT 1;
+---- 1 студент із найвищим середнім балом з одного предмета. (враховуючі всі предмети)
+--SELECT  s.name_student as top_1_student, l.name_lessons, round(avg(g.grade), 2) AS avg_grade
+--FROM gradebook as g
+--LEFT JOIN students as s ON s.id = g.student_id
+--LEFT JOIN lessons as l ON l.id = g.lesson_id
+----WHERE l.id = 202 -- Якщо розкоментувати, то можна виводити по ID предмету(дисципліни) (201-205)
+--GROUP BY s.name_student, l.name_lessons
+--ORDER BY avg_grade DESC
+--LIMIT 1;
 
 
 -- Середній бал в кожній групі по кожному предмету.
@@ -24,7 +24,7 @@ FROM gradebook as g
 LEFT JOIN students as s ON s.id = g.student_id
 LEFT JOIN lessons as l ON l.id = g.lesson_id
 LEFT JOIN kgroupsss as gr ON gr.id = s.id_group
---WHERE l.id = 202 -- Якщо розкоментувати, то можна виводити по ID предмету(дисципліни) (201-205) 
+--WHERE l.id = 202 -- Якщо розкоментувати, то можна виводити по ID предмету(дисципліни) (201-205)
 GROUP BY gr.name_group, l.name_lessons
 ORDER BY gr.name_group ASC
 LIMIT 12;
