@@ -164,7 +164,6 @@ def edit_tag(*args):
         print(f'Note with name \033[47m\033[30m {name} \033[0m updated tag.')
 
 
-
 def new_contact(*args) -> None:
     fullname = input("Enter contacts fullname: ")
     phone = input("Enter contacts phone: ")
@@ -186,7 +185,6 @@ def find_note(*args):
         if (request in n.name) or (request in n.text):
             print(f"       ID:  {n.id}\nName note:  {n.name}\nText note:  {n.text}\n      Tag:  {n.tag}")
             print(33 * '.')
-
 
 
 @error_handler
