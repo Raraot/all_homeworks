@@ -94,46 +94,38 @@ def delete_note(*args):
 
 @error_handler
 def edit_email(*args) -> None:
-    """
-    Is used to change contact email
-
-    :param args: Username old_email, new_email
-    :return: None
-    """
-    name, old_email, new_email, *tail = args
-
-    record: Record = AB.get(name)
-    if record is None:
-        raise KeyError(f"{name} contact does not exist")
-
-    result = record.change_email(
-        old_email, Email(new_email)
-    )
-    if 'changed' in result:
-        AB.changed_contact_data(record)
-    print(result)
+    fullname = input("Enter the fullname of the CONTACTs where you want to edit EMAIL: ")
+    alls = session.query(Phonebook).all()
+    alli = []
+    for a in alls:
+        alli.append(a.fullname)
+    if fullname not in alli:
+        print(f'\033[33mContact with fullname \033[47m\033[30m {fullname} \033[0m\033[33m does not find\033[0m')
+    else:
+        edite = session.query(Phonebook).filter_by(fullname=fullname).one()
+        print(f"Old  email: {edite.email}")
+        new_email = input("New email: ")
+        session.query(Phonebook).filter_by(fullname=fullname).update({Phonebook.email: new_email}, synchronize_session=False)
+        session.commit()
+        print(f'Email contact named \033[47m\033[30m {fullname} \033[0m edited.')
 
 
 @error_handler
 def edit_phone(*args):
-    """
-    Is used to change contact phone
-
-    :param args: Username old_phone new_phone
-    :return: None
-    """
-    name, old_phone, new_phone, *tail = args
-
-    record: Record = AB.get(name)
-    if record is None:
-        raise KeyError(f"{name} contact does not exist")
-
-    result = record.change_phone(
-        old_phone, Phone(new_phone)
-    )
-    if 'changed' in result:
-        AB.changed_contact_data(record)
-    print(result)
+    fullname = input("Enter the fullname of the CONTACTs where you want to edit PHONE: ")
+    alls = session.query(Phonebook).all()
+    alli = []
+    for a in alls:
+        alli.append(a.fullname)
+    if fullname not in alli:
+        print(f'\033[33mContact with fullname \033[47m\033[30m {fullname} \033[0m\033[33m does not find\033[0m')
+    else:
+        edite = session.query(Phonebook).filter_by(fullname=fullname).one()
+        print(f"Old  phone: {edite.phone}")
+        new_phone = input("New phone: ")
+        session.query(Phonebook).filter_by(fullname=fullname).update({Phonebook.phone: new_phone}, synchronize_session=False)
+        session.commit()
+        print(f'Phone contact named \033[47m\033[30m {fullname} \033[0m edited.')
 
 
 @error_handler
@@ -257,12 +249,12 @@ def show_contacts(*args) -> None:
 
 def show_help(*args):
     helps = """\nPHONEBOOK COMMANDS:
-'new contact <name> <phone> <email*> <birthday*>' - add new contact, * - optional
-'edit email <name> <old_data> <new_data>' - change already created email, format - example@gmail.com
-'edit phone <name> <old_data> <new_data>' - change already created phone, format - 10 numbers
-'delete email <name> <deleted_data>' - delete already created email address
-'delete phone <name> <deleted_data>'  - delete already created phone number
-'find phonebook <any data>' - <any data> to search data in phonebook
+'new contact' - add new contact  (all commands without parameters)
+'edit email' - change already created email
+'edit phone' - change already created phone
+'delete email' - delete already created email address
+'delete phone'  - delete already created phone number
+'find phonebook' - to search data in phonebook
 'help' - show information for all commands
 'show contact' - show one contact by name
 'show contacts' - show all contacts\n
@@ -274,10 +266,7 @@ NOTES COMMANDS:
 'find note'   - search for a note by name or text
 'find tag'    - search for a note by tag
 'show notes'  - display all notes
-'show note'   - display a some note\n
-OTHER COMMANDS:
-'change phonebook'- change information in phonebook
-'sort folder'     - sorted all your file in folder <path in your OS>\n"""
+'show note'   - display a some note\n"""
     print(helps)
 
 
